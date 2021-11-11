@@ -1,0 +1,74 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: obj-det-server-deployment # deployment name
+
+spec:  # deployment specification
+  replicas: 1
+  selector:
+    matchLabels:  # Used to match the deployment to pods
+      app: obj-det-server
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  revisionHistoryLimit: 5
+  template:  # represent pods in a deployment
+    metadata:
+      labels:
+        app: obj-det-server  # used to refer pods
+    
+    spec:  # Pod Specification
+      containers:
+      - name: obj-det-server
+        # readinessProbe:   # Readiness container check
+        #   tcpSocket: 
+        #     port: 9900
+        #   initialDelaySeconds: 7
+        #   periodSeconds: 10
+        # livenessProbe:   # Liveness container check
+        #   tcpSocket: 
+        #     port: 9900
+        #   initialDelaySeconds: 30
+        #   periodSeconds: 60
+        # image: avinaash67/det_car_truck:latest 
+        image: avinaash67/det_multiclass:latest  # Container Image
+        resources:
+          requests:
+            nvidia.com/gpu: "1"
+          limits:
+            memory: "5000Mi"  # Max memory limit of container
+            cpu: "4"
+            nvidia.com/gpu: "1"
+        ports:
+        - containerPort: 9900
+        volumeMounts:
+          - name: host-volume-data
+            mountPath: /data
+
+      imagePullSecrets:   # This secret is present under pod spec
+        - name: secret1
+        
+      volumes: 
+        - name: host-volume-data
+          hostPath:
+            path: /home/avinaashm/Projects/kubernetes/detection_update/data
+            type: Directory
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: obj-det-server-service
+spec:
+  type: NodePort
+  selector:
+    app: obj-det-server
+  ports:
+  - port: 9900
+    targetPort: 9900
+    nodePort: 30300
+

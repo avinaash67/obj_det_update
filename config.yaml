@@ -1,0 +1,13 @@
+# Object detection model
+Model:
+  path: "/data/Multiclass.pth"
+  num_classes: 6
+
+Video:
+  read_path: '/data/NewYork_360p.mp4'  # Absolute path prefered 
+  save_path: /data/NewYork_car_truck.mp4
+
+# Video player configration. Used if custom configration is needed 
+Video_writer_config:
+
+  
