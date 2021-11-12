@@ -35,7 +35,7 @@ spec:  # deployment specification
         #   initialDelaySeconds: 30
         #   periodSeconds: 60
         # image: avinaash67/det_car_truck:latest 
-        image: avinaash67/det_multiclass:latest  # Container Image
+        image: avinaash67/obj_det_update:latest  # Container Image
         resources:
           requests:
             nvidia.com/gpu: "1"
