@@ -59,6 +59,5 @@ torchvision==0.9.1
 tqdm
 typing==3.7.4.3
 typing-extensions
-urllib3==1.26.6
 wcwidth==0.2.5
 zipp==3.4.1
