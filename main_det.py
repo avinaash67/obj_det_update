@@ -50,11 +50,7 @@ while True:
         ret, frame = video_player_fd.read()  # Similar to do-while loop
         while ret:
             start_time = time()  # For measuring the FPS.
-
-            # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-            # frame = torch.from_numpy(frame).float()
             frame_actual = frame
-            # blob = cv2.dnn.blobFromImage(frame, 1/255.0, (320, 320), swapRB=True, crop=False)
 
             frame = torch.Tensor(frame)
             frame = torch.div(frame,255)  # change this

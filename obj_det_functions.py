@@ -120,12 +120,6 @@ def score_frame(frame, model,device):
     labels = results[0]["labels"].cpu().detach().numpy()
     cord = results[0]["boxes"].cpu().detach().numpy()
     scores = np.round(results[0]["scores"].cpu().detach().numpy(), decimals= 4)        
-    # print('score =', scores)                
-    # print('labels =', labels)
-    # print('cords = ', cord,'\n')
-
-    # labels = results.xyxyn[0][:, -1].cpu().numpy()
-    # cord = results.xyxyn[0][:, :-1].cpu().numpy()
 
     return labels,scores, cord
 
